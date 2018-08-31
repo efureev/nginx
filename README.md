@@ -1,7 +1,5 @@
 # Docker image with `nginx`
 
-[![build status][build_status_master]][link_pipelines]
-
 > **nginx** - веб-сервер и почтовый прокси-сервер, работающий на Unix-подобных операционных системах
 
 Для того, что бы вытянуть образ себе на локальную машину необходимо выполнить:
@@ -90,7 +88,3 @@ $ docker run \
 ```
 
 За данное поведение отвечает `entrypoint` скрипт.
-
-[build_status_master]:https://gitlab.com/avto-internal/docker/nginx/badges/master/build.svg
-[build_status_dev]:https://gitlab.com/avto-internal/docker/nginx/badges/dev/build.svg
-[link_pipelines]:https://gitlab.com/avto-internal/docker/nginx/pipelines
