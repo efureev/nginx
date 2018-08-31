@@ -7,7 +7,7 @@ stages:
   - build
 
 variables:
-  CONTAINER_IMAGE: registry.gitlab.com/$CI_PROJECT_PATH
+  CONTAINER_IMAGE: git.sitesoft.ru:4567/$CI_PROJECT_PATH
   DOCKER_DRIVER: overlay2
 
 build and push image:
@@ -29,21 +29,21 @@ test image building:
 .ci_scripts: &ci_scripts |
   apk add --no-cache curl
   export NOW_TIMESTAMP=$(date +'%Y%m%d%H%M%S')
-  docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.gitlab.com
+  docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.sitesoft.ru:4567
 
   function trigger_build() {
     local project_id="$1";            # Project ID (integer)
     local trigger_token="$2";         # Trigger token (string)
     local branch_name="${3:-master}"; # Branch name (string)
-    
-    URL="https://gitlab.com/api/v4/projects/$project_id/trigger/pipeline";
-    
+
+    URL="https://git.sitesoft.ru:4567/api/v4/projects/$project_id/trigger/pipeline";
+
     curl -L \
       --request POST \
       --form "token=$trigger_token" \
       --form "ref=$branch_name" \
       "$URL";
   }
-  
+
 before_script:
   - *ci_scripts
