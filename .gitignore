@@ -1,0 +1,8 @@
+# IDEs
+/.idea
+
+# etc.
+/temp
+/tmp
+/build
+/.build
