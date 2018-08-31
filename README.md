@@ -5,8 +5,8 @@
 Для того, что бы вытянуть образ себе на локальную машину необходимо выполнить:
 
 ```bash
-$ docker login registry.gitlab.com
-$ docker pull registry.gitlab.com/avto-internal/docker/nginx:latest
+$ docker login git.sitesoft.ru:4567
+$ docker pull git.sitesoft.ru:4567/sitesoft/nginx:latest
 ```
 
 ## Переопределение значений в конфигурационном файле
