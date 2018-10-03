@@ -4,11 +4,18 @@ services:
   - docker:dind
 
 stages:
+  - spawn
   - build
 
 variables:
   CONTAINER_IMAGE: git.sitesoft.ru:4567/$CI_PROJECT_PATH
   DOCKER_DRIVER: overlay2
+
+spawn_containers:
+  stage: spawn
+  script:
+    - echo "Start docker-containers for compile sources"
+    - *ci_scripts
 
 build and push image:
   stage: build
@@ -16,7 +23,7 @@ build and push image:
     - master
   script:
     - docker build --tag $CONTAINER_IMAGE:$NOW_TIMESTAMP --tag $CONTAINER_IMAGE:latest .
-#    - docker push $CONTAINER_IMAGE:$NOW_TIMESTAMP
+    - docker push $CONTAINER_IMAGE:$NOW_TIMESTAMP
     - docker push $CONTAINER_IMAGE:latest
 
 test image building:
@@ -36,7 +43,7 @@ test image building:
     local trigger_token="$2";         # Trigger token (string)
     local branch_name="${3:-master}"; # Branch name (string)
 
-    URL="https://gitlab.com/api/v4/projects/$project_id/trigger/pipeline";
+    URL="http://git.sitesoft.ru/api/v4/projects/$project_id/trigger/pipeline";
 
     curl -L \
       --request POST \
