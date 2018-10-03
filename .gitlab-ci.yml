@@ -16,20 +16,6 @@ variables:
   export NOW_TIMESTAMP=$(date +'%Y%m%d%H%M%S')
   docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.sitesoft.ru:4567
 
-  function trigger_build() {
-    local project_id="$1";            # Project ID (integer)
-    local trigger_token="$2";         # Trigger token (string)
-    local branch_name="${3:-master}"; # Branch name (string)
-
-    URL="http://git.sitesoft.ru/api/v4/projects/$project_id/trigger/pipeline";
-
-    curl -L \
-      --request POST \
-      --form "token=$trigger_token" \
-      --form "ref=$branch_name" \
-      "$URL";
-  }
-
 spawn_containers:
   stage: spawn
   script:
