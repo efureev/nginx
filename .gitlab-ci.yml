@@ -4,23 +4,23 @@ services:
   - docker:dind
 
 stages:
-  - spawn
   - build
 
 variables:
-  CONTAINER_IMAGE: git.sitesoft.ru:4567/$CI_PROJECT_PATH
+  CONTAINER_IMAGE: "git.sitesoft.ru:4567/$CI_PROJECT_PATH"
   DOCKER_DRIVER: overlay2
 
-.ci_scripts: &ci_scripts |
-  apk add --no-cache curl
-  export NOW_TIMESTAMP=$(date +'%Y%m%d%H%M%S')
-  docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.sitesoft.ru:4567
+before_script:
+  - apk add --no-cache curl
+  - export NOW_TIMESTAMP=$(date +'%Y%m%d%H%M%S')
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN git.sitesoft.ru:4567
 
-spawn_containers:
-  stage: spawn
+test image building:
+  stage: build
+  except:
+    - master
   script:
-    - echo "Start docker-containers for compile sources"
-    - *ci_scripts
+    - docker build --cache-from $CONTAINER_IMAGE:latest .
 
 build and push image:
   stage: build
@@ -31,9 +31,3 @@ build and push image:
     - docker push $CONTAINER_IMAGE:$NOW_TIMESTAMP
     - docker push $CONTAINER_IMAGE:latest
 
-test image building:
-  stage: build
-  except:
-    - master
-  script:
-    - docker build --cache-from $CONTAINER_IMAGE:latest .
