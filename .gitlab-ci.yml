@@ -30,4 +30,3 @@ build and push image:
     - docker build --tag $CONTAINER_IMAGE:$NOW_TIMESTAMP --tag $CONTAINER_IMAGE:latest .
     - docker push $CONTAINER_IMAGE:$NOW_TIMESTAMP
     - docker push $CONTAINER_IMAGE:latest
-
