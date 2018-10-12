@@ -1,2 +1,2 @@
-- `docker build --rm -t git.sitesoft.ru:4567/sitesoft/nginx -t git.sitesoft.ru:4567/sitesoft/nginx:1.15.3 .`
-- `docker pull git.sitesoft.ru:4567/sitesoft/nginx`
+- `docker build --rm -t git.sitesoft.ru:4567/docker/nginx -t git.sitesoft.ru:4567/docker/nginx:1.15.3 .`
+- `docker pull git.sitesoft.ru:4567/docker/nginx`
